@@ -22,7 +22,8 @@ use Zend\Server\Reflection\Node;
 class JsonGeneratorPlugin extends AbstractPlugin {
 	const GROCCERYURL = 'http://www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/get-ideas/features/pc10-great-offers-on-selected-veg?langId=44&storeId=10151&krypto=WI1Et0XGenGAQffuR%2BWpiOir4U%2B7QuiNf1xKG%2FbX%2Fs%2BkgW2D35U4%2Fs315qPY5G9qPSTsfL24ca4t%0AcFrYvYR2%2FJJ9dNYB%2Fsbb7%2F%2F1NMlOzQVsePQEEIUdQUJbsFUR988a&ddkey=http:gb/groceries/get-ideas/features/pc10-great-offers-on-selected-veg';
 
-	public function getGrocceryJsonData() {
+	public function getGrocceryJsonData()
+	{
 		$result = $this->getNewResponse ( '' );
 		// content of the web
 		$body = $result->getBody ();
@@ -68,7 +69,7 @@ class JsonGeneratorPlugin extends AbstractPlugin {
 	/**
 	 * calculate total
 	 */
-	public function getProductsPriceTotal(array $grocceryProductArray) {
+	protected function getProductsPriceTotal(array $grocceryProductArray) {
 		return array_sum ( array_map ( function ($element) {
 			return $element ['price'];
 		}, $grocceryProductArray ['results'] ) );
@@ -79,7 +80,7 @@ class JsonGeneratorPlugin extends AbstractPlugin {
 	 * @param string $url
 	 * @return insatnce of Zend\Http\Client
 	 */
-	public function getNewResponse($url = NULL) {
+	protected function getNewResponse($url = NULL) {
 		$client = new HttpClient ();
 
 		/**
@@ -176,7 +177,7 @@ class JsonGeneratorPlugin extends AbstractPlugin {
 	 * @param number $offset
 	 * @return Node
 	 */
-	public function getElementByClass(&$parentNode, $tagName, $className, $offset = 0) {
+	protected function getElementByClass(&$parentNode, $tagName, $className, $offset = 0) {
 		$response = false;
 
 		$childNodeList = $parentNode->getElementsByTagName ( $tagName );
