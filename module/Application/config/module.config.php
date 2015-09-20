@@ -78,6 +78,11 @@ return array(
             'Application\Controller\Index' => Controller\IndexController::class
         ),
     ),
+	'controller_plugins' => array(
+			'invokables' => array(
+					'JsonGeneratorPlugin' => 'Application\Controller\Plugin\JsonGeneratorPlugin',
+			)
+	),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
@@ -96,9 +101,18 @@ return array(
     ),
     // Placeholder for console routes
     'console' => array(
-        'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
+				'router' => array(
+						'routes' => array(
+								'user-generate-json' => array(
+										'options' => array(
+												'route'    => 'user generatejson [--verbose|-v]',
+												'defaults' => array(
+														'controller' => 'Application\Controller\Index',
+														'action'     => 'generatejson'
+												)
+										)
+								)
+						)
+				)
+		),
 );

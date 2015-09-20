@@ -12,7 +12,7 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements \Zend\ModuleManager\Feature\ServiceProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
@@ -35,5 +35,30 @@ class Module
                 ),
             ),
         );
+    }
+    public function getControllerPluginConfig()
+    {
+    	return array(
+    			'factories'  => array(
+    					'JsonGeneratorPlugin' => function() {
+    						return new \Application\Controller\Plugin\JsonGeneratorPlugin();
+    					},
+
+    			)
+    	);
+    }
+    public function getConsoleUsage(Console $console)
+    {
+    	return array(
+    			// Describe available commands
+    			'user generatejson [--verbose|-v]'    => 'Generate JSON dataof sainsbuyrs groccery items for a user',
+
+    			// Describe expected parameters
+    			array( '--verbose|-v',     '(optional) turn on verbose mode'        ),
+    	);
+    }
+    public function getServiceConfig()
+    {
+
     }
 }
